@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home Page{% endblock title %}
+
+{% block nav %}
+<nav class="detail-nav">
+    {% endblock nav %}
+
+    {% block content %}
+    <!-- {% if user.is_authenticated %} -->
+    <div class="home-body">
+        <div class="home-main">
+            <!-- <br>
+        <div class="hi-text">Welcome &nbsp; <b>{{user.username}}</b>. Here are your reads.</div> -->
+
+            <div class="article-home-container">
+                <div class="article-detail-container">
+                    {% if user == detail.author %}
+                    <div class="update">
+                        <a class="update-btn" href="{% url 'update' detail.pk %}"><button type="submit">Edit
+                                Article</button></a>
+                        <a class="update-btn1" href="{% url 'delete' detail.pk %}"><button class="button"
+                                type="submit">Delete
+                                Article</button></a>
+                    </div>
+                        {% if detail.author.profile %}
+                        <a class="detail-a" href="{% url 'profile' detail.author.profile.pk %}">
+                            <img class="detail-img" src="{% static 'images/me.jpg' %}" width="8%" height="100%"
+                                alt="">&nbsp;
+                            <p>{{detail.author}} &nbsp;|&nbsp; {{detail.publish}}</p>
+                        </a>
+                        {% else %}
+                        <a class="detail-a" href="{% url 'no_profile' %}">
+                            <img class="detail-img" src="{% static 'images/me.jpg' %}" width="8%" height="100%"
+                                alt="">&nbsp;
+                            <p>{{detail.author}} &nbsp;|&nbsp; {{detail.publish}}</p>
+                        </a>
+                        {% endif %}
+                    <h2><a href="">{{detail.title}}</a></h2>
+                    <p><a href="">{{detail.body|safe}}</a></p>
+                    {% else %}
+                    {% if detail.author.profile %}
+                    <a class="detail-a" href="{% url 'profile' detail.author.profile.pk %}">
+                        <img class="detail-img" src="{% static 'images/me.jpg' %}" width="8%" height="100%"
+                            alt="">&nbsp;
+                        <p>{{detail.author}} &nbsp;|&nbsp; {{detail.publish}}</p>
+                    </a>
+                    {% else %}
+                    <a class="detail-a" href="{% url 'no_profile' %}">
+                        <img class="detail-img" src="{% static 'images/me.jpg' %}" width="8%" height="100%"
+                            alt="">&nbsp;
+                        <p>{{detail.author}} &nbsp;|&nbsp; {{detail.publish}}</p>
+                    </a>
+                    {% endif %}
+                    <h2><a href="">{{detail.title}}</a></h2>
+                    <p><a href="">{{detail.body|safe}}</a></p>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="like-comment-container">
+                <a href="{% url 'like-article' detail.pk %}" id="like-btn" value="{{ detail.id}}"><img
+                        src="{% static 'images/hands.png' %}" alt=""></a>{{total}}&nbsp;&nbsp;&nbsp;<a id="like-btn"
+                    value="{{ detail.id }}"><img src="{% static 'images/chat1.png' %}" alt=""></a>0&nbsp;&nbsp;&nbsp; <a
+                    id="like-btn">&#9679;&#9679;&#9679;</a>
+            </div>
+        </div>
+
+
+        <div class="home-sidebar">
+            <h2>Staff picks</h2>
+
+        </div>
+    </div>
+    <!-- {% else %}
+<p align="center" style="font-size: large; font-weight: bold; padding: 5px;">You are not logged in</p> -->
+    <!-- <p class="home-login"><a id="home-login" href="{% url 'login' %}"> Login</a></p> -->
+    <!-- <div class="home-img">
+    <img src="{% static 'images/home.png' %}" height="100%" width="100%" alt="">
+</div> -->
+    <!-- {% endif %} -->
+
+    {% endblock content %}

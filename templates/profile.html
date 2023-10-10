@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Profile Page{% endblock title %}
+
+{% block nav %}
+<nav class="detail-nav">
+    {% endblock nav %}
+
+    {% block content %}
+
+    <div id="profile-home-body">
+        <div id="profile-main">
+            <div id="profile-main-container1">
+                {% if profile.user.username == 'admin' %}
+                    <h1>{{profile.user.username | capfirst}}</h1>
+                {% else %}
+                    <h1>{{profile.user.first_name | capfirst}} {{profile.user.last_name | capfirst}}</h1>
+                {% endif %}
+                <p id="followers-following">
+                    <a href="{% url 'followers' profile.pk %}"><span>Followers </span><span class="followers-following-count"><b>{{profile.followed_by.all.count}}</b></span></a>
+                    <a href="{% url 'follows' profile.pk %}"><span>Following </span><span class="followers-following-count"><b>{{profile.follows.all.count}}</b></span></a>
+                </p>
+                <div id="profile-home-about-container">
+
+                    <div id="profile-home-about-container-link">
+
+                        <a href="" id="profile-home-link">Home</a><a href="">About</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-users-articles-container">
+                {% for articles in user_articles %}
+                <div id="profile-users-articles">
+                    <a href="{% url 'login' %}">
+                        <p>{{articles}}</p><img src="{% static 'images/django_book.jpg' %}" alt="">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div id="profile-side">
+            {% if user_articles.count == 1%}
+            <h3 id="number-of-user-articles">You have {{user_articles.count}} article.</h3>
+            {% else %}
+            <h3 id="number-of-user-articles">You have {{user_articles.count}} articles.</h3>
+            {% endif %}
+            <form id="follow-form" action="" method="POST">
+                {% csrf_token %}
+                {% if profile in user.profile.follows.all %}
+                <button id="unfollow-btn" name="follow" value="unfollow" type="submit">Unfollow</button>
+                {% else %}
+                <button id="follow-btn" name="follow" value="follow" type="submit">Follow</button>
+                {% endif %}
+            </form>
+            
+        </div>
+    </div>
+    {% endblock content %}

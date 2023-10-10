@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Signin {% endblock %}
+
+{% block signin %}
+<li class="navlink"><a href="{% url 'login' %}"><u>Sign in</u></a></li>
+{% endblock signin %}
+
+{% block content %}
+<div class="login-container">
+    <a class="cancel-btn" href="{% url 'home' %}">&#128473;</a>
+    <h1 class="heading1">Welcome back.</h1>
+    <form class="login-form" action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="signin-btn">Sign in</button>
+    </form>
+    <p class="inquire">No account? <a class="inquire-link" href="{% url 'signup' %}">Create one</a></p>
+</div>
+{% endblock content %}

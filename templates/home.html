@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home Page{% endblock title %}
+
+{% block nav %}
+<nav class="detail-nav">
+    {% endblock nav %}
+
+    {% block content %}
+    {% if user.is_authenticated %}
+    <div class="home-body">
+        <div class="home-main">
+            <br>
+            <div class="hi-text">Welcome &nbsp; <b>{{user.username}}</b>. Here are your reads.</div>
+            {% for articles in article_list %}
+            <div class="home-container">
+                <div class="article-container">
+                    <a href="{% url 'profile' articles.author.profile.id %}"><img src="{% static 'images/me.jpg' %}" width="4%" height="100%" alt="">&nbsp;
+                        <p>{{articles.author}} &nbsp;|&nbsp; {{articles.publish}}</p>
+                    </a>
+                    <h2><a class="article-title" href="{% url 'detail' articles.pk %}">{{articles.title}}</a></h2>
+                    {% if articles.body|length > 400 %}
+                    <p><a href="{% url 'detail' articles.pk %}">{{articles.body|slice:400|safe}}</a></p>
+                    {% else %}
+                    <p><a href="{% url 'detail' articles.pk %}">{{articles.body|safe}}</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="home-sidebar">
+            <h2>Staff picks</h2>
+        </div>
+    </div>
+    {% else %}
+    <p align="center" style="font-size: large; font-weight: bold; padding: 5px;">You are not logged in</p>
+    <!-- <p class="home-login"><a id="home-login" href="{% url 'login' %}"> Login</a></p> -->
+    <div class="home-img">
+        <img src="{% static 'images/home.png' %}" height="100%" width="100%" alt="">
+    </div>
+    {% endif %}
+
+    {% endblock content %}

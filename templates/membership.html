@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Membership page {% endblock title%}
+
+{% block membership %}
+<li class="navlink"><u><a href="{% url 'membership' %}">Membership</a></u></li>
+{% endblock membership%}
+
+{% block btn1 %}
+{% if user.is_authenticated %}
+<a href="" class="btn1">Get Unlimited access</a>
+{% else %}
+<a href="{% url 'login' %}" class="btn1">Get Unlimited access</a>
+{% endif %}
+{% endblock btn1 %}
+
+{% block nav %}
+<nav class="membership-nav">
+    {% endblock nav %}
+
+    {% block medium_logo %}
+    <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'images/Medium-logo-white.png' %}"
+                alt="medium-logo"></a>
+    </div>
+    {% endblock medium_logo %}
+
+    {% block content %}
+    <div class="membership-container1">
+        <div class="membership-container1-sub">
+            <h2>Fuel great thinking.</h2>
+
+            <p>Become a Medium member to enjoy unlimited access and
+                directly support the writers you read most.</p>
+
+            <div class="membership-container1-btn"><a href=""><button>Get unlimited access</button></a></div>
+        </div>
+    </div>
+    <div class="membership-container2">
+        <div class="membership-container2-sub-1">
+            <h2>Get unlimited access to every story.</h2>
+            <img src="{% static 'images/m2-blue.png' %}" height="45%" width="60%" alt="m img">
+            <p>Read any article in our entire library across all your devices — with no paywalls, story limits or ads.
+            </p>
+        </div>
+        <div class="membership-container2-sub-2">
+            <h2>Support the voices you want to hear more from.</h2>
+            <img src="{% static 'images/m1-blue.png' %}" height="45%" width="60%" alt="m img">
+            <p>A portion of your membership will directly support the writers and thinkers you read the most.
+            </p>
+        </div>
+    </div>
+    <div class="membership-container3">
+        <h2>Why I'm a Medium Member...</h2>
+        <div class="membership-container3-long">
+            <div class="membership-container3-long-i">
+                <img height="100%" width="150px" src="{% static 'images/me.JPG' %}" alt="">
+                <div class="membership-circle">
+                    <div class="membership-circle1"></div>
+                    <div class="membership-circle2"></div>
+                </div>
+            </div>
+            <div class="membership-container3-long-ii">
+                <blockquote>"I love Medium’s membership — it gives me access to the stories I love by the writers I
+                    love, and
+                    it allows me to help support those writers financially."</blockquote>
+                <p>Kayt Molina</p>
+            </div>
+        </div>
+        <a class="arrows">&larr; &nbsp; &nbsp; &rarr;</a>
+    </div>
+    <div class="membership-container4">
+        <div class="membership-container4-sub">
+            <h2>Take your mind
+                in new directions.</h2>
+            <a href=""><button>Get unlimited access</button></a>
+        </div>
+        <img src="{% static 'images/dscvr.png' %}" alt="" height="35%" width="100%">
+    </div>
+   
+    <script type="text/JavaScript">
+        window.addEventListener("scroll", function(){
+            var memnav = document.querySelector(".membership-nav .nav-bar");
+            memnav.classList.toggle("sticky", window.scrollY > 0);
+    });
+    </script>
+    <footer class="membership-footer">
+        <img src="{% static 'images/Medium-logo.png' %}" alt="">
+        <p>Every idea needs a Medium</p>
+        <ul>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'terms' %}">Terms</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy</a></li>
+            <li><a href="{% url 'help' %}">Help</a></li>
+        </ul>
+    </footer>
+    
+    {% endblock content %}

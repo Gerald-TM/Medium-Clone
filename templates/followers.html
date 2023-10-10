@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% if profile.user.username == 'admin' %}
+    <br><h1>{{profile.user.username | capfirst}}'s Followers</h1><br>
+{% else %}
+    <br><h1>{{profile.user.first_name | capfirst}} {{profile.user.last_name | capfirst}}'s Followers</h1><br>
+{% endif %}
+{% for followers in profile.followed_by.all %}
+<u1>
+    <li><a  href="{% url 'profile' followers.pk %}">{{followers}}</a></li>
+</u1>
+{% endfor %}
+
+{% endblock content %}

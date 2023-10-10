@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Edit article {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend Deca"> -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Serif 4"> -->
+</head>
+
+<body>
+    <form class="article-create-form" action="" method="POST">{% csrf_token %}
+        <nav class="article-create-nav">
+            <div class="article-create-nav-container">
+                <div class="article-create-div1">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/medium-short.png' %}" height="40%" width="22%" alt="medium-logo">
+                    </a>
+                    {% if user.username == 'admin' %}
+                    <p>Draft in {{user.username|capfirst}}</p>
+                    {% else %}
+                    <p>Draft in {{user.first_name}} {{user.last_name}}</p>
+                    {% endif %}
+                </div>
+                <div class="article-create-div2">
+                    <input type="submit" value="Update">
+                    <h2 class="dot3"><a href="">&#9679;&#9679;&#9679;</a></h2>
+                    <div class="article-create-div2-i">
+                        <a class="bell" href=""><img src="{% static 'images/notification.png' %}" alt=""></a>
+                        {% if user.username == 'admin' %}
+                        <a class="email-icon" href="">{{user.username|slice:1|capfirst}}</a>
+                        {% else %}
+                        <a class="email-icon" href="">{{user.first_name|slice:1}}</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main class="article-create-main">
+            <div class="article-create-main-div">
+                <p class="article-create-form-title">
+                    <input type="text" name="title"  placeholder="Title" required=""
+                        id="id_title" value="{{form.instance.title}}">
+                </p>
+                <p class="article-create-form-body">
+                    <textarea name="body" 
+                        placeholder="Tell your story..." style="height: 1000%; width:100%" required="" id="id_body">{{form.instance.body}}</textarea>
+                </p>
+                <!-- {{form.as_p}} -->
+            </div>
+        </main>
+        <!-- <footer class="article-create-footer">
+            <p>this is article create footer</p>
+        </footer> -->
+    </form>
+</body>
